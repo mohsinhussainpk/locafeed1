@@ -29,7 +29,7 @@ public class Main2Activity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                // setContentView(R.layout.create_post);
-               // startActivity(new Intent(Main2Activity.this, Main2Activity.class));
+                startActivity(new Intent(Main2Activity.this, PostActivity.class));
 
 
             }

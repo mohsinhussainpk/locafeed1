@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+
+        <item>event</item>
+        <item>questions</item>
+        <item>jobs</item>
+        <item>traffic</item>
+    </string-array>
+</resources>
