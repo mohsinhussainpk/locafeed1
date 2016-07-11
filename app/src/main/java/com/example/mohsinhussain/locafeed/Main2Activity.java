@@ -1,9 +1,13 @@
 package com.example.mohsinhussain.locafeed;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +17,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    ViewPager pager;
+    TabLayout tabLayout;
+   // String JSONSTRING;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +39,28 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pager= (ViewPager) findViewById(R.id.view_pager);
+        tabLayout= (TabLayout) findViewById(R.id.tab_layout);
+
+
+        // Fragment manager to add fragment in viewpager we will pass object of Fragment manager to adpater class.
+        FragmentManager manager=getSupportFragmentManager();
+
+        //object of PagerAdapter passing fragment manager object as a parameter of constructor of PagerAdapter class.
+        PagerAdapter adapter=new PagerAdapter(manager);
+
+        //set Adapter to view pager
+        pager.setAdapter(adapter);
+
+        //set tablayout with viewpager
+        tabLayout.setupWithViewPager(pager);
+
+        // adding functionality to tab and viewpager to manage each other when a page is changed or when a tab is selected
+        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        //Setting tabs from adpater
+        tabLayout.setTabsFromPagerAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -34,6 +72,7 @@ public class Main2Activity extends AppCompatActivity
 
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -101,4 +140,58 @@ public class Main2Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+/*
+    class BackgroundTask extends AsyncTask<Void,Void,String>
+    {
+
+        String json_url;
+
+        @Override
+        protected void onPreExecute() {
+            json_url = "https://evening-cove-67540.herokuapp.com/get_posts.php";
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            try {
+                URL url = new URL(json_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((JSONSTRING=bufferedReader.readLine())!=null)
+                {
+                    stringBuilder.append(JSONSTRING+"\n");
+
+
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+           // TextView textView = (TextView) findViewById(R.id.JSONtextview);
+            //textView.setText(result);
+            JSONSTRING = result;
+        }
+
+    }*/
+
 }
+

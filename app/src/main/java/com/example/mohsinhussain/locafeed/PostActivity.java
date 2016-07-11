@@ -13,7 +13,7 @@ public class PostActivity extends AppCompatActivity {
 
     Spinner  spinner;
     EditText title_text,description_text;
-    String title,description,category;
+    String title,description,category, category1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String itemSelectedInSpinner = parent.getItemAtPosition(position).toString();
-                gettingTheCategory(itemSelectedInSpinner);
+               category1 = gettingTheCategory(itemSelectedInSpinner);
             }
 
             @Override
@@ -43,9 +43,10 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-    private void gettingTheCategory(String itemSelectedInSpinner) {
+    private String gettingTheCategory(String itemSelectedInSpinner) {
 
         category = itemSelectedInSpinner;
+        return category;
     }
 
 
@@ -66,9 +67,10 @@ public class PostActivity extends AppCompatActivity {
         title = title_text.getText().toString();
         description = description_text.getText().toString();
         String method = "register";
+
         //com.mysampleapp.BackgroundTask backgroundTask = new com.mysampleapp.BackgroundTask(this);
         com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(this);
-      backgroundTask.execute(method,title,description,category);
+      backgroundTask.execute(method,title,description,category1);
 
         finish();
 
