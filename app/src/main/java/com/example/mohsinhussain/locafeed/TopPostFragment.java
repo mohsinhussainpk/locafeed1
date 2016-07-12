@@ -3,12 +3,17 @@ package com.example.mohsinhussain.locafeed;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -46,10 +51,37 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
     JSONArray jsonArray;
     PostsAdapter postsAdapter;
     ListView listView;
-  public TopPostFragment(){
+       public TopPostFragment(){
 
 
-  }
+      }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+       inflater.inflate(R.menu.topmenu_fragment, menu);
+       }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.refresh_settings){
+
+            TopBackgroundTask1 toptask = new TopBackgroundTask1();
+            //TopBackgroundTask1 toptask = new TopBackgroundTask1();
+           toptask.execute();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Nullable
     @Override
@@ -57,13 +89,23 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
 
        View view = inflater.inflate(R.layout.fragment_top_post,container,false);
 
-        TopBackgroundTask yat=new TopBackgroundTask(getActivity());
-        new TopBackgroundTask(getActivity().getApplicationContext()).execute();
+       // TopBackgroundTask yat=new TopBackgroundTask(getActivity());
+      //  new TopBackgroundTask(getActivity().getApplicationContext()).execute();
+        //String json;
+         TopBackgroundTask1 yat = new TopBackgroundTask1();
+        yat.execute();
+        try {
+            json_string = yat.get();
+            Log.v("log",json_string);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+     //   String[] menuItems = {"do something", "did something"};
+        listView =(ListView) view.findViewById(R.id.topListView);
 
-        String[] menuItems = {"do something", "did something"};
-        listView =(ListView) view.findViewById(R.id.topListView);
-/*
-        listView =(ListView) view.findViewById(R.id.topListView);
+       // listView =(ListView) view.findViewById(R.id.topListView);
        postsAdapter = new PostsAdapter(getActivity(),R.layout.custom_row);
         listView.setAdapter(postsAdapter);
 
@@ -96,15 +138,15 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
         } catch (JSONException e) {
             e.printStackTrace();
         }
-*/
 
+/*
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
 
                 getActivity(),android.R.layout.simple_list_item_1, menuItems
         );
 
         listView.setAdapter(listViewAdapter);
-
+*/
 
 
 
@@ -113,6 +155,89 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
 
 
         return view;
+    }
+
+    public class TopBackgroundTask1 extends AsyncTask<String,Void,String> {
+
+        private final String LOG_TAG = TopBackgroundTask1.class.getSimpleName();
+        @Override
+        protected String doInBackground(String... params) {
+
+            // These two need to be declared outside the try/catchforecastJsonStr
+// so that they can be closed in the finally block.
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+// Will contain the raw JSON response as a string.
+            String forecastJsonStr = null;
+
+            try {
+
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("https")
+                        .authority("evening-cove-67540.herokuapp.com")
+                        .appendPath("get_topposts3.php")
+                        .appendQueryParameter("cat", "event");
+                        //.appendQueryParameter("sort", "relevance")
+                        //.fragment("section-name");
+                String myUrl = builder.build().toString();
+                // Construct the URL for the OpenWeatherMap query
+                // Possible parameters are available at OWM's forecast API page, at
+                // http://openweathermap.org/API#forecast
+               // URL url = new URL("https://evening-cove-67540.herokuapp.com/get_topposts.php");
+
+                URL url = new URL(myUrl);
+
+                Log.v(LOG_TAG,"Built Uri"+ myUrl );
+
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    forecastJsonStr = null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    forecastJsonStr = null;
+                }
+                forecastJsonStr = buffer.toString();
+               // Log.v(LOG_TAG,"Top post json string: " + forecastJsonStr);
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attempting
+                // to parse it.
+                forecastJsonStr = null;
+            } finally{
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+            return forecastJsonStr;
+        }
     }
 
     @Override
