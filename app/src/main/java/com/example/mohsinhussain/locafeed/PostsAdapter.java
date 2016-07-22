@@ -5,7 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,8 @@ public class PostsAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
+
         View row;
         row = convertView;
         PostsHolder postHolder;
@@ -51,6 +55,9 @@ public class PostsAdapter extends ArrayAdapter {
             postHolder.tx_description = (TextView)row.findViewById(R.id.tx_description);
             postHolder.tx_title = (TextView)row.findViewById(R.id.tx_title);
             postHolder.tx_votes = (TextView)row.findViewById(R.id.tx_votes);
+            postHolder.tx_userid = (TextView)row.findViewById(R.id.tx_userid);
+
+
             row.setTag(postHolder);
         }
 
@@ -65,12 +72,14 @@ public class PostsAdapter extends ArrayAdapter {
         postHolder.tx_title.setText(posts.getTitle());
         postHolder.tx_votes.setText(posts.getVotes());
         postHolder.tx_description.setText(posts.getDescription());
+        postHolder.tx_userid.setText(posts.getUserId());
+
         return row;
     }
 
     static class PostsHolder{
 
-        TextView tx_title, tx_description, tx_votes;
+        TextView tx_title, tx_description, tx_votes, tx_userid;
 
 
     }

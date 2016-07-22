@@ -28,4 +28,5 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+    <string name="title_activity_main3">Main3Activity</string>
 </resources>

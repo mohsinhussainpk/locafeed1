@@ -31,6 +31,7 @@ public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ViewPager pager;
     TabLayout tabLayout;
+    String category;
    // String JSONSTRING;
 
     @Override
@@ -124,15 +125,44 @@ public class Main2Activity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_news) {
+            category ="news";
 
-        } else if (id == R.id.nav_slideshow) {
+            TopPostFragment fragment =  new TopPostFragment();
+            fragment.setName(category);
+            NewPostFragment newfragment = new NewPostFragment();
+            newfragment.setName1(category);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_jobs) {
+            category ="jobs";
 
-        } else if (id == R.id.nav_share) {
+            TopPostFragment fragment =  new TopPostFragment();
+            fragment.setName(category);
+            NewPostFragment newfragment = new NewPostFragment();
+            newfragment.setName1(category);
 
-        } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.nav_events) {
+            category ="event";
+
+            TopPostFragment fragment =  new TopPostFragment();
+            fragment.setName(category);
+            NewPostFragment newfragment = new NewPostFragment();
+            newfragment.setName1(category);
+
+
+        } else if (id == R.id.nav_traffic) {
+            category ="traffic";
+
+            TopPostFragment fragment =  new TopPostFragment();
+            fragment.setName(category);
+            NewPostFragment newfragment = new NewPostFragment();
+            newfragment.setName1(category);
+
+
+
+
+
 
         }
 

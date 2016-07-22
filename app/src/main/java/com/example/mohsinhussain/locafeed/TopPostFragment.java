@@ -1,14 +1,18 @@
 package com.example.mohsinhussain.locafeed;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,23 +48,37 @@ import java.util.concurrent.ExecutionException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TopPostFragment extends Fragment implements AdapterView.OnItemClickListener {
-
+public class TopPostFragment extends Fragment {
     String json_string;
    JSONObject jsonObject;
     JSONArray jsonArray;
     PostsAdapter postsAdapter;
     ListView listView;
+
        public TopPostFragment(){
 
 
       }
+    public static String category="event";
+
+    public void setName(String string){
+        category = string;
+
+
+
+
+
+
+
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -77,6 +95,13 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
             TopBackgroundTask1 toptask = new TopBackgroundTask1();
             //TopBackgroundTask1 toptask = new TopBackgroundTask1();
            toptask.execute();
+
+            Intent i = new Intent(getActivity(), Main2Activity.class);
+// set the new task and clear flags
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        //  startActivity(new Intent(getActivity(), Main2Activity.class));
+
 
             return true;
         }
@@ -108,6 +133,24 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
        // listView =(ListView) view.findViewById(R.id.topListView);
        postsAdapter = new PostsAdapter(getActivity(),R.layout.custom_row);
         listView.setAdapter(postsAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                View curr = parent.getChildAt((int) id);
+                                                TextView c = (TextView)curr.findViewById(R.id.tx_userid);
+                                                String playerChanged = c.getText().toString();
+                                                Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+
+
+
+
+                                            }
+                                        }
+
+        );
+
 
        // json_string = yat.JSONSTRING;
 
@@ -118,7 +161,7 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
 
 
             int count= 0;
-            String title, description, votes;
+            String title, description, votes, userid;
 
             while(count<jsonArray.length())
             {
@@ -126,14 +169,17 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
                 title = JO.getString("post_title");
                 description = JO.getString("post_description");
                 votes = JO.getString("post_votes");
+                userid = JO.getString("post_id");
 
-                Posts posts = new Posts(title,description,votes);
+
+                Posts posts = new Posts(title,description,votes,userid);
                 postsAdapter.add(posts);
 
                 count++;
 
 
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -154,8 +200,38 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
 
 
 
+
         return view;
     }
+
+
+/*
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_news) {
+
+            category = "news";
+        } else if (id == R.id.nav_jobs) {
+            category = "jobs";
+
+        } else if (id == R.id.nav_events) {
+            category = "events";
+
+        } else if (id == R.id.nav_traffic) {
+
+            category = "traffic";
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    */
 
     public class TopBackgroundTask1 extends AsyncTask<String,Void,String> {
 
@@ -177,7 +253,7 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
                 builder.scheme("https")
                         .authority("evening-cove-67540.herokuapp.com")
                         .appendPath("get_topposts3.php")
-                        .appendQueryParameter("cat", "event");
+                        .appendQueryParameter("cat", category);
                         //.appendQueryParameter("sort", "relevance")
                         //.fragment("section-name");
                 String myUrl = builder.build().toString();
@@ -240,9 +316,12 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
         }
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
 
        /* TopBackgroundTask yat=new TopBackgroundTask(getActivity().getApplicationContext());
 
@@ -291,9 +370,11 @@ public class TopPostFragment extends Fragment implements AdapterView.OnItemClick
         }*/
     }
 
+    }
+    /*
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
-}
+

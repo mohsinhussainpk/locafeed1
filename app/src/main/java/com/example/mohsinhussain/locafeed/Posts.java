@@ -6,13 +6,14 @@ package com.example.mohsinhussain.locafeed;
 import java.lang.String;
 public class Posts {
 
-    private String title, description, votes;
+    private String title, description, votes, userid;
 
-    public Posts(String title, String description, String votes)
+    public Posts(String title, String description, String votes, String userid)
     {
         this.setTitle(title);
         this.setDescription(description);
         this.setVotes(votes);
+        this.setUserId(userid);
 
     }
 
@@ -22,6 +23,14 @@ public class Posts {
 
     public void setVotes(String votes) {
         this.votes = votes;
+    }
+
+    public String getUserId() {
+        return userid;
+    }
+
+    public void setUserId(String userid) {
+        this.userid = userid;
     }
 
     public String getDescription() {

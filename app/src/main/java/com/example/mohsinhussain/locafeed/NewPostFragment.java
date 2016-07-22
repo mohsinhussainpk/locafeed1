@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -43,7 +44,11 @@ public class NewPostFragment extends Fragment {
     public NewPostFragment() {
         // Required empty public constructor
     }
+    public static String category="news";
 
+    public void setName1(String string){
+        category = string;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +100,23 @@ public class NewPostFragment extends Fragment {
         postsAdapter = new PostsAdapter(getActivity(),R.layout.custom_row);
         listView.setAdapter(postsAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                View curr = parent.getChildAt((int) id);
+                                                TextView c = (TextView)curr.findViewById(R.id.tx_userid);
+                                                String playerChanged = c.getText().toString();
+                                                Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+
+
+
+
+                                            }
+                                        }
+
+        );
         // json_string = yat.JSONSTRING;
 
 
@@ -104,7 +126,7 @@ public class NewPostFragment extends Fragment {
 
 
             int count= 0;
-            String title, description, votes;
+            String title, description, votes, userid;
 
             while(count<jsonArray.length())
             {
@@ -112,8 +134,9 @@ public class NewPostFragment extends Fragment {
                 title = JO.getString("post_title");
                 description = JO.getString("post_description");
                 votes = JO.getString("post_votes");
+                userid = JO.getString("post_id");
 
-                Posts posts = new Posts(title,description,votes);
+                Posts posts = new Posts(title,description,votes,userid);
                 postsAdapter.add(posts);
 
                 count++;
@@ -161,7 +184,7 @@ public class NewPostFragment extends Fragment {
                 builder.scheme("https")
                         .authority("evening-cove-67540.herokuapp.com")
                         .appendPath("get_newposts.php")
-                        .appendQueryParameter("cat", "event");
+                        .appendQueryParameter("cat", category);
                 //.appendQueryParameter("sort", "relevance")
                 //.fragment("section-name");
                 String myUrl = builder.build().toString();
