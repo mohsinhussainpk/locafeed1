@@ -40,6 +40,41 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
         String reg_url = "https://evening-cove-67540.herokuapp.com/newcon3.php";
 
         String method = params[0];
+
+        if (method.equals("upvote")) {
+            String reg_url1 = "https://evening-cove-67540.herokuapp.com/upvote.php";
+
+            String post_id = params[1];
+
+
+            try {
+                URL url = new URL(reg_url1);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                //httpURLConnection.setDoInput(true);
+                OutputStream OS = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
+                String data = URLEncoder.encode("post_id", "UTF-8") + "=" + URLEncoder.encode(post_id, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                OS.close();
+                InputStream IS = httpURLConnection.getInputStream();
+                IS.close();
+                //httpURLConnection.connect();
+                httpURLConnection.disconnect();
+                return "Registration Success...";
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
         if (method.equals("register")) {
             String post_title = params[1];
             String post_description = params[2];

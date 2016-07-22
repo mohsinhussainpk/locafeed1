@@ -133,7 +133,11 @@ public class TopPostFragment extends Fragment {
        // listView =(ListView) view.findViewById(R.id.topListView);
        postsAdapter = new PostsAdapter(getActivity(),R.layout.custom_row);
         listView.setAdapter(postsAdapter);
+/*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public String method = "upvote";
+
+
 
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -143,6 +147,9 @@ public class TopPostFragment extends Fragment {
                                                 String playerChanged = c.getText().toString();
                                                 Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
 
+                                                com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(getActivity());
+                                                backgroundTask.execute(method,playerChanged);
+
 
 
 
@@ -150,7 +157,7 @@ public class TopPostFragment extends Fragment {
                                         }
 
         );
-
+*/
 
        // json_string = yat.JSONSTRING;
 
@@ -194,8 +201,23 @@ public class TopPostFragment extends Fragment {
         listView.setAdapter(listViewAdapter);
 */
 
+ listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+     public String method = "upvote";
 
+     @Override
+     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+         View curr = parent.getChildAt((int) id);
+         TextView c = (TextView)curr.findViewById(R.id.tx_userid);
+         String playerChanged = c.getText().toString();
+         Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+
+         com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(getActivity());
+         backgroundTask.execute(method,playerChanged);
+
+         return false;
+     }
+ });
 
 
 
