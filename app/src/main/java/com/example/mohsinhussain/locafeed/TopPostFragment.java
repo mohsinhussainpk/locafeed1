@@ -60,7 +60,8 @@ public class TopPostFragment extends Fragment {
 
       }
     public static String category="event";
-
+   // public static String location="lahore";
+   public static String location;
     public void setName(String string){
         category = string;
 
@@ -71,6 +72,18 @@ public class TopPostFragment extends Fragment {
 
 
     }
+
+    public void setLocation(String string){
+        location = string;
+
+
+
+
+
+
+
+    }
+
 
 
     @Override
@@ -275,8 +288,10 @@ public class TopPostFragment extends Fragment {
                 builder.scheme("https")
                         .authority("evening-cove-67540.herokuapp.com")
                         .appendPath("get_topposts3.php")
-                        .appendQueryParameter("cat", category);
-                        //.appendQueryParameter("sort", "relevance")
+                        .appendQueryParameter("cat", category)
+                        .appendQueryParameter("loc", location);
+
+                // .appendQueryParameter("sort", "relevance")
                         //.fragment("section-name");
                 String myUrl = builder.build().toString();
                 // Construct the URL for the OpenWeatherMap query

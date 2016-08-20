@@ -1,6 +1,8 @@
 package com.example.mohsinhussain.locafeed;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +29,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,6 +78,42 @@ public class Main2Activity extends AppCompatActivity
 
             }
         });
+        GPSTracker gpsTracker = new GPSTracker(this);
+        String stringLatitude, stringLongitude;
+        String nameOfLocation = "";
+        if (gpsTracker.canGetLocation()) {
+            stringLatitude = String.valueOf(gpsTracker.latitude);
+            stringLongitude = String.valueOf(gpsTracker.longitude);
+            // getting city from latitude, longitude values
+            double lat = Double.parseDouble(stringLatitude);
+            double longi = Double.parseDouble(stringLongitude);
+
+
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(lat, longi, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //String stateName = "lahore";
+
+            String cityName = addresses.get(0).getAddressLine(0);
+            String stateName = addresses.get(0).getAddressLine(1);
+            String countryName = addresses.get(0).getAddressLine(2);
+            //  nameOfLocation = ConvertPointToLocation(stringLatitude,stringLongitude);
+
+            TopPostFragment fragment1 =  new TopPostFragment();
+
+            fragment1.setLocation(stateName);
+             Toast.makeText(this, stateName, Toast.LENGTH_LONG).show();
+
+
+        } else {
+            Toast.makeText(this, "location not found", Toast.LENGTH_LONG).show();
+
+
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
