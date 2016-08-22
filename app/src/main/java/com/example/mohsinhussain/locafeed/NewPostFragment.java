@@ -44,6 +44,18 @@ public class NewPostFragment extends Fragment {
     public NewPostFragment() {
         // Required empty public constructor
     }
+    public static String location;
+
+    public void setLocationNew(String string){
+        location = string;
+
+
+
+
+
+
+
+    }
     public static String category="news";
 
     public void setName1(String string){
@@ -184,7 +196,9 @@ public class NewPostFragment extends Fragment {
                 builder.scheme("https")
                         .authority("evening-cove-67540.herokuapp.com")
                         .appendPath("get_newposts.php")
-                        .appendQueryParameter("cat", category);
+                        .appendQueryParameter("cat", category)
+                        .appendQueryParameter("loc", location);
+
                 //.appendQueryParameter("sort", "relevance")
                 //.fragment("section-name");
                 String myUrl = builder.build().toString();

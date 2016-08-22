@@ -98,14 +98,19 @@ public class Main2Activity extends AppCompatActivity
             }
             //String stateName = "lahore";
 
-            String cityName = addresses.get(0).getAddressLine(0);
+           // String cityName = addresses.get(0).getAddressLine(0);
             String stateName = addresses.get(0).getAddressLine(1);
-            String countryName = addresses.get(0).getAddressLine(2);
+           // String countryName = addresses.get(0).getAddressLine(2);
             //  nameOfLocation = ConvertPointToLocation(stringLatitude,stringLongitude);
 
             TopPostFragment fragment1 =  new TopPostFragment();
+            NewPostFragment fragment2 = new NewPostFragment();
+            PostActivity fragment3 = new PostActivity();
 
-            fragment1.setLocation(stateName);
+            fragment3.setLocationPost(stateName);
+            fragment2.setLocationNew(stateName);
+            fragment1.setLocationTop(stateName);
+
              Toast.makeText(this, stateName, Toast.LENGTH_LONG).show();
 
 

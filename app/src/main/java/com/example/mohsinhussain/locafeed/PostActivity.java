@@ -13,8 +13,18 @@ public class PostActivity extends AppCompatActivity {
 
     Spinner  spinner;
     EditText title_text,description_text;
-    String title,description,category, category1;
+    String title,description,category, category1, location;
 
+    public void setLocationPost(String string){
+        location = string;
+
+
+
+
+
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -73,7 +73,7 @@ public class TopPostFragment extends Fragment {
 
     }
 
-    public void setLocation(String string){
+    public void setLocationTop(String string){
         location = string;
 
 
