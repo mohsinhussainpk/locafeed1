@@ -1,6 +1,7 @@
 package com.example.mohsinhussain.locafeed;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -107,11 +108,21 @@ public class Main2Activity extends AppCompatActivity
             NewPostFragment fragment2 = new NewPostFragment();
             PostActivity fragment3 = new PostActivity();
 
-            fragment3.setLocationPost(stateName);
+            //fragment3.setLocationPost(stateName);
             fragment2.setLocationNew(stateName);
             fragment1.setLocationTop(stateName);
+/*
+            Intent intent = new Intent(Main2Activity.this,PostActivity.class);
+            intent.putExtra("location_text",stateName);
+            startActivity(intent);
+            */
+            //Intent.putExtra(“nameofString”,”stringData”)
 
-             Toast.makeText(this, stateName, Toast.LENGTH_LONG).show();
+            SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putString("MID", stateName );
+            edit.commit();
+            Toast.makeText(this, stateName, Toast.LENGTH_LONG).show();
 
 
         } else {

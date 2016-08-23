@@ -1,5 +1,6 @@
 package com.example.mohsinhussain.locafeed;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,8 @@ public class PostActivity extends AppCompatActivity {
 
     Spinner  spinner;
     EditText title_text,description_text;
-    String title,description,category, category1, location;
-
+    String title,description,category, category1,location;
+/*
     public void setLocationPost(String string){
         location = string;
 
@@ -25,11 +26,15 @@ public class PostActivity extends AppCompatActivity {
 
 
     }
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        SharedPreferences bb = getSharedPreferences("my_prefs", 0);
+        location = bb.getString("NUM", "");
+      // location = getIntent().getStringExtra("location_text");
 
         addItemsToSpinner();
         addListenerToSpinner();
@@ -80,7 +85,7 @@ public class PostActivity extends AppCompatActivity {
 
         //com.mysampleapp.BackgroundTask backgroundTask = new com.mysampleapp.BackgroundTask(this);
         com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(this);
-      backgroundTask.execute(method,title,description,category1);
+      backgroundTask.execute(method,title,description,category1,location);
 
         finish();
 

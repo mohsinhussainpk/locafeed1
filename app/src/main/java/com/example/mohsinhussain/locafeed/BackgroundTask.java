@@ -79,6 +79,10 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
             String post_title = params[1];
             String post_description = params[2];
             String post_category = params[3];
+           // String post_location = params[4];
+
+            String post_location="Karachi";
+
 
             try {
                 URL url = new URL(reg_url);
@@ -90,7 +94,8 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
                 String data = URLEncoder.encode("post_title", "UTF-8") + "=" + URLEncoder.encode(post_title, "UTF-8") + "&" +
                         URLEncoder.encode("post_description", "UTF-8") + "=" + URLEncoder.encode(post_description, "UTF-8") + "&" +
-                        URLEncoder.encode("post_category", "UTF-8") + "=" + URLEncoder.encode(post_category, "UTF-8");
+                        URLEncoder.encode("post_category", "UTF-8") + "=" + URLEncoder.encode(post_category, "UTF-8") + "&" +
+                        URLEncoder.encode("post_location", "UTF-8") + "=" + URLEncoder.encode(post_location, "UTF-8");
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();

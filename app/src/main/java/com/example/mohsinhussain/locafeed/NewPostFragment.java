@@ -1,6 +1,7 @@
 package com.example.mohsinhussain.locafeed;
 
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -69,25 +70,7 @@ public class NewPostFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.topmenu_fragment, menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.refresh_settings){
-
-            NewBackgroundTask newtask = new NewBackgroundTask();
-            //TopBackgroundTask1 toptask = new TopBackgroundTask1();
-            newtask.execute();
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @Override
@@ -261,6 +244,31 @@ public class NewPostFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.topmenu_fragment, menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.refresh_settings){
+
+            NewBackgroundTask toptask = new NewBackgroundTask();
+            //TopBackgroundTask1 toptask = new TopBackgroundTask1();
+            toptask.execute();
+
+            Intent i = new Intent(getActivity(), Main2Activity.class);
+// set the new task and clear flags
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            //  startActivity(new Intent(getActivity(), Main2Activity.class));
+
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
