@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/up_Arrow"
+        android:src="@drawable/up_arrow"
+        android:layout_alignRight="@+id/down_Arrow"
+        android:layout_alignEnd="@+id/down_Arrow" />
+
+
+
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/down_Arrow"
+        android:src="@drawable/down_arrow"
+        android:layout_below="@id/up_Arrow"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0"
+        android:id="@+id/tx_votes"
+        android:layout_above="@+id/down_Arrow"
+        android:layout_toRightOf="@+id/up_Arrow"
+        android:layout_toEndOf="@+id/up_Arrow" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/tx_title"
+        android:paddingLeft="10dp"
+        android:layout_above="@+id/tx_votes"
+        android:layout_toRightOf="@+id/tx_votes"
+        android:layout_toEndOf="@+id/tx_votes" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/tx_description"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/tx_title"
+        android:layout_toRightOf="@+id/tx_votes"
+        android:layout_toEndOf="@+id/tx_votes" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/tx_userid"
+        android:layout_alignBottom="@+id/tx_description"
+        android:layout_toRightOf="@+id/tx_votes"
+        android:layout_toEndOf="@+id/tx_votes"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Comments"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/down_Arrow"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/down_Arrow"
+        android:layout_toEndOf="@+id/down_Arrow" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.example.mohsinhussain.locafeed.TopPostFragment"
+        android:id="@+id/fragment2"
+        android:layout_below="@+id/textView2"
+        android:layout_alignRight="@+id/down_Arrow"
+        android:layout_alignEnd="@+id/down_Arrow" />
+
+
+</RelativeLayout>

@@ -102,8 +102,13 @@ public class NewPostFragment extends Fragment {
 
                                                 View curr = parent.getChildAt((int) id);
                                                 TextView c = (TextView)curr.findViewById(R.id.tx_userid);
-                                                String playerChanged = c.getText().toString();
-                                                Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+                                                String newpost_id = c.getText().toString();
+                                                //Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+
+                                                Intent intent = new Intent(getActivity(),
+                                                        DetailedActivity.class);
+                                                intent.putExtra("user_id", newpost_id);
+                                                getActivity().startActivity(intent);
 
 
 

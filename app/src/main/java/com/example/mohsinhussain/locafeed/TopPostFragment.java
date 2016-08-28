@@ -146,31 +146,96 @@ public class TopPostFragment extends Fragment {
        // listView =(ListView) view.findViewById(R.id.topListView);
        postsAdapter = new PostsAdapter(getActivity(),R.layout.custom_row);
         listView.setAdapter(postsAdapter);
-/*
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public String method = "upvote";
+          //  public String method = "upvote";
 
 
 
                                             @Override
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+
                                                 View curr = parent.getChildAt((int) id);
                                                 TextView c = (TextView)curr.findViewById(R.id.tx_userid);
-                                                String playerChanged = c.getText().toString();
-                                                Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+                                                String newpost_id = c.getText().toString();
+                                                //Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+/*
+                                                //View curr1 = parent.getChildAt((int) id);
+                                                TextView d = (TextView)curr.findViewById(R.id.descriptionText);
+                                                String title = d.getText().toString();
 
+                                              //  View curr2 = parent.getChildAt((int) id);
+                                                TextView e = (TextView)curr.findViewById(R.id.detail_description);
+                                                String description = e.getText().toString();
+
+                                             //   View curr3 = parent.getChildAt((int) id);
+                                                TextView f = (TextView)curr.findViewById(R.id.tx_votes);
+                                                String votes = f.getText().toString();
+                                                */
+                                                Intent intent = new Intent(getActivity(),
+                                                        DetailedActivity.class);
+                                                intent.putExtra("user_id", newpost_id);
+                                            /*    intent.putExtra("title", title);
+                                                intent.putExtra("description", description);
+                                                intent.putExtra("votes", votes);
+                                                */
+                                                getActivity().startActivity(intent);
+
+/*
                                                 com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(getActivity());
                                                 backgroundTask.execute(method,playerChanged);
 
 
+*/
+                                                //Intent I = new Intent(getActivity(), DetailedActivity.class);
+                                                //startActivity(I);
+/*
+                                                View curr = parent.getChildAt((int) id);
+                                                TextView d = (TextView)curr.findViewById(R.id.tx_userid);
+                                                String newpost_id = d.getText().toString();
+                                                TextView e = (TextView)curr.findViewById(R.id.descriptionText);
+                                           //     String description = e.getText().toString();
+                                                TextView f = (TextView)curr.findViewById(R.id.detail_description);
+                                                String newdetailDescription = f.getText().toString();
+                                                TextView g = (TextView)curr.findViewById(R.id.tx_votes);
+                                                String newvotes = g.getText().toString();
 
+                                                Intent intent = new Intent(getActivity().getBaseContext(),
+                                                        DetailedActivity.class);
+                                                intent.putExtra("user_id", newpost_id);
+                                              //  intent.putExtra("description_text", description);
+                                                intent.putExtra("detail_description", newdetailDescription );
+                                                intent.putExtra("votes", newvotes);
+                                                getActivity().startActivity(intent);
+/*
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("title", description);
+                                               bundle.putString("description", newdetailDescription);
+                                                bundle.putString("votes", newvotes);
+                                                bundle.putString("post_id",newpost_id);
+// set Fragmentclass Arguments
+                                                CommentFragment fragobj = new CommentFragment();
+                                                fragobj.setArguments(bundle);
+
+
+                                                Intent intent = new Intent(getActivity(), DetailedActivity.class);
+                                                Bundle extras = new Bundle();
+                                                extras.putString("title",description);
+                                                extras.putString("description",newdetailDescription);
+                                                extras.putString("votes",newvotes);
+                                                extras.putString("post_id",newpost_id);
+                                                intent.putExtras(extras);
+                                                startActivity(intent);
+
+*/
 
                                             }
                                         }
 
         );
-*/
+
 
        // json_string = yat.JSONSTRING;
 
@@ -228,7 +293,7 @@ public class TopPostFragment extends Fragment {
          com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(getActivity());
          backgroundTask.execute(method,playerChanged);
 
-         return false;
+         return true;
      }
  });
 

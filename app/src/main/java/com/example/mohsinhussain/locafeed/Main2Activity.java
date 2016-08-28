@@ -100,10 +100,12 @@ public class Main2Activity extends AppCompatActivity
             //String stateName = "lahore";
 
            // String cityName = addresses.get(0).getAddressLine(0);
-            String stateName = addresses.get(0).getAddressLine(1);
+
+           // String stateName = addresses.get(0).getAddressLine(1);
            // String countryName = addresses.get(0).getAddressLine(2);
             //  nameOfLocation = ConvertPointToLocation(stringLatitude,stringLongitude);
 
+            String stateName = "karachi";
             TopPostFragment fragment1 =  new TopPostFragment();
             NewPostFragment fragment2 = new NewPostFragment();
             PostActivity fragment3 = new PostActivity();
