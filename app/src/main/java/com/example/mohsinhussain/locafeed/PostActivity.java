@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -33,8 +34,10 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         SharedPreferences bb = getSharedPreferences("my_prefs", 0);
-        location = bb.getString("NUM", "");
+        location = bb.getString("MID", "");
       // location = getIntent().getStringExtra("location_text");
+        Toast.makeText(this, location, Toast.LENGTH_LONG).show();
+
 
         addItemsToSpinner();
         addListenerToSpinner();

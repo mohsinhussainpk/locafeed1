@@ -66,11 +66,13 @@ public class TopPostFragment extends Fragment {
         category = string;
 
 
+    }
+
+    public String getCategory()
+    {
 
 
-
-
-
+        return category;
     }
 
     public void setLocationTop(String string){
@@ -91,6 +93,7 @@ public class TopPostFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
 
     }
 

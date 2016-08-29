@@ -6,7 +6,7 @@
         <menu>
             <item
                 android:id="@+id/nav_news"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_send"
                 android:title="News" />
             <item
                 android:id="@+id/nav_jobs"
@@ -20,26 +20,23 @@
                 android:id="@+id/nav_traffic"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Traffic" />
+            <item
+                android:id="@+id/nav_QUESTIONS"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Questions" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                />
+
         </menu>
     </item>
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+
     </group>
 
 

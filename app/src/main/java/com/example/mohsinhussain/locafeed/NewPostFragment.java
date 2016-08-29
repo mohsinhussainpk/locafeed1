@@ -63,12 +63,43 @@ public class NewPostFragment extends Fragment {
         category = string;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.topmenu_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.refresh_settings){
+
+            NewBackgroundTask toptask = new NewBackgroundTask();
+            //TopBackgroundTask1 toptask = new TopBackgroundTask1();
+            toptask.execute();
+
+            Intent i = new Intent(getActivity(), Main2Activity.class);
+// set the new task and clear flags
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            //  startActivity(new Intent(getActivity(), Main2Activity.class));
+
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
 
@@ -158,11 +189,28 @@ public class NewPostFragment extends Fragment {
 */
 
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public String method = "upvote";
 
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                View curr = parent.getChildAt((int) id);
+                TextView c = (TextView)curr.findViewById(R.id.tx_userid);
+                String playerChanged = c.getText().toString();
+                Toast.makeText(getActivity(),playerChanged, Toast.LENGTH_SHORT).show();
+
+                com.example.mohsinhussain.locafeed.BackgroundTask backgroundTask = new com.example.mohsinhussain.locafeed.BackgroundTask(getActivity());
+                backgroundTask.execute(method,playerChanged);
+
+                return true;
+            }
+        });
 
 
         return view;
     }
+
 
     public class NewBackgroundTask extends AsyncTask<String,Void,String> {
 
@@ -249,31 +297,7 @@ public class NewPostFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.topmenu_fragment, menu);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
-        if (id == R.id.refresh_settings){
-
-            NewBackgroundTask toptask = new NewBackgroundTask();
-            //TopBackgroundTask1 toptask = new TopBackgroundTask1();
-            toptask.execute();
-
-            Intent i = new Intent(getActivity(), Main2Activity.class);
-// set the new task and clear flags
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-            //  startActivity(new Intent(getActivity(), Main2Activity.class));
-
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

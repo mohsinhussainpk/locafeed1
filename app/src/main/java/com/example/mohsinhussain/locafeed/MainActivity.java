@@ -24,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
     private LoginButton loginButton;
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        startActivity(new Intent(MainActivity.this, Main2Activity.class));
+
+
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

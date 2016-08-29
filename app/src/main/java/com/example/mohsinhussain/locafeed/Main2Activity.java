@@ -38,7 +38,10 @@ public class Main2Activity extends AppCompatActivity
     ViewPager pager;
     TabLayout tabLayout;
     String category;
+
    // String JSONSTRING;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,12 @@ public class Main2Activity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         pager= (ViewPager) findViewById(R.id.view_pager);
         tabLayout= (TabLayout) findViewById(R.id.tab_layout);
 
+        TopPostFragment fragment =  new TopPostFragment();
+        category = fragment.getCategory();
+        setTitle(category);
 
         // Fragment manager to add fragment in viewpager we will pass object of Fragment manager to adpater class.
         FragmentManager manager=getSupportFragmentManager();
@@ -99,20 +104,20 @@ public class Main2Activity extends AppCompatActivity
             }
             //String stateName = "lahore";
 
-           // String cityName = addresses.get(0).getAddressLine(0);
+            String cityName = addresses.get(0).getAddressLine(0);
 
            // String stateName = addresses.get(0).getAddressLine(1);
            // String countryName = addresses.get(0).getAddressLine(2);
             //  nameOfLocation = ConvertPointToLocation(stringLatitude,stringLongitude);
 
-            String stateName = "karachi";
+           // String stateName = "karachi";
             TopPostFragment fragment1 =  new TopPostFragment();
             NewPostFragment fragment2 = new NewPostFragment();
             PostActivity fragment3 = new PostActivity();
 
             //fragment3.setLocationPost(stateName);
-            fragment2.setLocationNew(stateName);
-            fragment1.setLocationTop(stateName);
+            fragment2.setLocationNew(cityName);
+            fragment1.setLocationTop(cityName);
 /*
             Intent intent = new Intent(Main2Activity.this,PostActivity.class);
             intent.putExtra("location_text",stateName);
@@ -122,9 +127,9 @@ public class Main2Activity extends AppCompatActivity
 
             SharedPreferences prefs = getSharedPreferences("my_prefs", MODE_PRIVATE);
             SharedPreferences.Editor edit = prefs.edit();
-            edit.putString("MID", stateName );
+            edit.putString("MID", cityName);
             edit.commit();
-            Toast.makeText(this, stateName, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, cityName, Toast.LENGTH_LONG).show();
 
 
         } else {
@@ -182,8 +187,12 @@ public class Main2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_QUESTIONS) {
             // Handle the camera action
+
+            category="questions";
+
+
         } else if (id == R.id.nav_news) {
             category ="news";
 
@@ -191,6 +200,8 @@ public class Main2Activity extends AppCompatActivity
             fragment.setName(category);
             NewPostFragment newfragment = new NewPostFragment();
             newfragment.setName1(category);
+
+
 
         } else if (id == R.id.nav_jobs) {
             category ="jobs";

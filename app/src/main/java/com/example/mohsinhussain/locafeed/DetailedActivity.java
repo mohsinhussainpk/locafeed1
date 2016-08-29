@@ -1,14 +1,23 @@
 package com.example.mohsinhussain.locafeed;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailedActivity extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
+public class DetailedActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +26,9 @@ public class DetailedActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String user_id = intent.getStringExtra("user_id");
+        CommentFragment fragment2 = new CommentFragment();
+        fragment2.setPost_id(user_id);
+
         //String title = intent.getStringExtra("title");
   //      String description = intent.getStringExtra("description");
 //        String votes = intent.getStringExtra("votes");
@@ -41,4 +53,7 @@ public class DetailedActivity extends AppCompatActivity {
 
     }
 
+
+
 }
+

@@ -6,5 +6,6 @@
         <item>questions</item>
         <item>jobs</item>
         <item>traffic</item>
+        <item>news</item>
     </string-array>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -77,22 +78,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/down_Arrow"
-        android:layout_toEndOf="@+id/down_Arrow" />
+
 
     <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.example.mohsinhussain.locafeed.TopPostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.mohsinhussain.locafeed.CommentFragment"
         android:id="@+id/fragment2"
-        android:layout_below="@+id/textView2"
-        android:layout_alignRight="@+id/down_Arrow"
-        android:layout_alignEnd="@+id/down_Arrow" />
+        android:layout_below="@id/textView2"
+        tools:layout="@layout/fragment_comment2" />
 
 
 </RelativeLayout>

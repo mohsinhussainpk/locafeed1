@@ -79,9 +79,9 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
             String post_title = params[1];
             String post_description = params[2];
             String post_category = params[3];
-           // String post_location = params[4];
+            String post_location = params[4];
 
-            String post_location="Karachi";
+            //String post_location="Karachi";
 
 
             try {
